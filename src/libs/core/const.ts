@@ -1,0 +1,6 @@
+let obj:any ={};
+obj.TRANSITION_TIME=200;
+obj.RESTORE_FRAME=obj.TRANSITION_TIME/1000;
+obj.BOUND_LENGTH_SCALE=0.02;
+obj.ATOM_RADIUS_SCALE = 1/33;
+export default obj;
