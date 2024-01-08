@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 // import App from './App.tsx'
-import "./index.css";
+// import "./index.css";
 // import DIY from '@nobook/molecular-model';
 // import OrganicDependJS from './components/OrganicDependJS'
 
@@ -31,6 +31,49 @@ function App() {
   //   <DIY />
   // );
 }
+
+import { makeObservable, observable, action, reaction, autorun } from 'mobx';
+
+class UserStore {
+  user = {
+    name: 'John Doe',
+    age: 12,
+  };
+
+  constructor() {
+    makeObservable(this, {
+      user: observable,
+      changeUserName: action,
+    });
+
+    // 创建一个 reaction，监听 name 属性的变化
+    reaction(
+      () => this.user.name,
+      (newName) => {
+        console.log(`Name changed to: ${newName}`);
+      }
+    );
+
+    // autorun(() => {
+    //   console.log(`Name changed to: ${this.user.age}`);
+    //   console.log(`Name changed to: ${this.user.name}`);
+    // })
+  }
+
+  changeUserName = (newName) => {
+    this.user.name = newName;
+  }
+}
+
+const userStore = new UserStore();
+
+// 使用示例
+// console.log(userStore.user.name); // 输出: John Doe
+userStore.changeUserName('Jane Doe'); // 输出: Name changed to: Jane Doe
+// console.log(userStore.user.name); // 输出: Jane Doe
+
+window.change = userStore.changeUserName;
+
 
 // import React, { useState, useEffect } from 'react';
 
